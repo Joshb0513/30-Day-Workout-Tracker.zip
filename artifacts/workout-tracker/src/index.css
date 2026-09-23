@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Space+Mono:wght@400;700&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --font-sans: var(--app-font-sans);
+  --font-serif: var(--app-font-serif);
+  --font-mono: var(--app-font-mono);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --background: 39 38% 93%;
+  --foreground: 187 34% 16%;
+  --border: 37 24% 82%;
+  --input: 37 24% 82%;
+  --ring: 16 72% 54%;
+  --card: 40 42% 97%;
+  --card-foreground: 187 34% 16%;
+  --primary: 176 47% 29%;
+  --primary-foreground: 40 42% 97%;
+  --secondary: 36 32% 88%;
+  --secondary-foreground: 187 34% 16%;
+  --muted: 39 25% 87%;
+  --muted-foreground: 187 13% 43%;
+  --accent: 16 72% 54%;
+  --accent-foreground: 39 38% 93%;
+  --sidebar: 178 42% 23%;
+  --sidebar-foreground: 40 42% 97%;
+  --sidebar-border: 178 34% 30%;
+  --sidebar-primary: 16 72% 54%;
+  --sidebar-primary-foreground: 39 38% 93%;
+  --sidebar-accent: 178 34% 30%;
+  --sidebar-accent-foreground: 40 42% 97%;
+  --app-font-sans: 'DM Sans', sans-serif;
+  --app-font-serif: 'Fraunces', Georgia, serif;
+  --app-font-mono: 'Space Mono', monospace;
+  --radius: 0.95rem;
+  --shadow-soft: 0 16px 44px rgba(29, 61, 60, .08);
+}
+
+.dark {
+  --background: 184 29% 11%;
+  --foreground: 40 42% 94%;
+  --border: 184 18% 25%;
+  --input: 184 18% 25%;
+  --card: 184 26% 15%;
+  --card-foreground: 40 42% 94%;
+  --muted: 184 20% 22%;
+  --muted-foreground: 39 16% 68%;
+  --primary: 172 43% 58%;
+  --primary-foreground: 184 29% 11%;
+  --secondary: 184 20% 22%;
+  --secondary-foreground: 40 42% 94%;
+  --accent: 16 76% 61%;
+  --accent-foreground: 184 29% 11%;
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply font-sans antialiased bg-background text-foreground; margin: 0; }
+  button, input { font: inherit; }
+  button { cursor: pointer; }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes pulse-soft {
+  0%, 100% { transform: scale(1); opacity: .72; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+.page-enter { animation: rise-in .5s cubic-bezier(.2,.8,.2,1) both; }
+.pop-enter { animation: pop-in .35s cubic-bezier(.2,.8,.2,1) both; }
+.stagger-1 { animation-delay: 70ms; }
+.stagger-2 { animation-delay: 140ms; }
+.stagger-3 { animation-delay: 210ms; }
+.pulse-soft { animation: pulse-soft 2.4s ease-in-out infinite; }
+.font-display { font-family: var(--app-font-serif); }
+.font-mono { font-family: var(--app-font-mono); }
+
+.app-shell {
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 80% -10%, rgba(224, 113, 74, .13), transparent 32rem),
+    radial-gradient(circle at -10% 90%, rgba(35, 112, 106, .11), transparent 28rem),
+    hsl(var(--background));
+}
+.texture {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .18;
+  z-index: 20;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+.scrollbar-thin::-webkit-scrollbar { height: 5px; width: 5px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 999px; }
+.safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+
+@media (max-width: 767px) {
+  .mobile-scroll { overflow-x: auto; scrollbar-width: none; }
+  .mobile-scroll::-webkit-scrollbar { display: none; }
+}

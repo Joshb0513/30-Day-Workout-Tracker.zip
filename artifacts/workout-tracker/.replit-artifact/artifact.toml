@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "30-Day Workout Tracker"
+description = "A focused personal workout planner for entering 30 days of workouts, logging weights for each set, and checking off daily training as it is completed."
+version = "1.0.0"
+id = "artifacts/workout-tracker"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19273
+
+[services.development]
+run = "pnpm --filter @workspace/workout-tracker run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/workout-tracker", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/workout-tracker/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19273"
+BASE_PATH = "/"
